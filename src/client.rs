@@ -49,8 +49,6 @@ impl SolClient {
 
         let response = self.http_op(body).await?;
 
-        dbg!(&response.as_str()?);
-
         let deser_response: Result<OnChainTransaction, _> =
             serde_json::from_str(&response.as_str()?);
 
