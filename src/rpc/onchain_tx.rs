@@ -1,4 +1,5 @@
-use poseidon_common::Base58PublicKey;
+use crate::TransactionError;
+use poseidon_common::{Base58PublicKey, UnixTimestamp};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
@@ -12,14 +13,14 @@ pub struct OnChainTransaction {
 #[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RpcResult {
-    pub block_time: u64,
+    pub block_time: UnixTimestamp,
     pub meta: RpcMeta,
 }
 
 #[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RpcMeta {
-    pub err: Option<RpcErr>,
+    pub err: Option<TransactionError>,
     pub fee: u32,
     pub inner_instructions: Vec<RpcInnerInstructions>,
     pub log_messages: Vec<String>,
@@ -28,15 +29,7 @@ pub struct RpcMeta {
     pub pre_token_balances: Vec<TokenBalances>,
     pub post_token_balances: Vec<TokenBalances>,
     pub rewards: Vec<Reward>,
-    //TODO apply a function to convert from JsonValue if an error is encountered
-    pub status: Result<(), RpcErr>,
-}
-
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct RpcErr {
-    #[serde(rename = "InstructionError")]
-    instruction_error: Vec<serde_json::Value>,
+    pub status: Result<(), TransactionError>,
 }
 
 #[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]

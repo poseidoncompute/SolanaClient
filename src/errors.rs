@@ -26,7 +26,6 @@ pub struct JsonError {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, PartialOrd, Ord, Eq)]
-#[serde(rename_all = "camelCase")]
 pub enum TransactionError {
     AccountInUse,
     AccountLoadedTwice,
@@ -61,7 +60,6 @@ pub enum TransactionError {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, PartialOrd, Ord, Eq)]
-#[serde(rename_all = "camelCase")]
 pub enum InstructionError {
     GenericError,
     InvalidArgument,
