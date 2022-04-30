@@ -8,10 +8,17 @@ license = "Apache-2.0"
 
 [dependencies]
 serde = { version = "1.0.136", features = ["derive"] }
-poseidon-common = { path = "../ComputeInfrastructure/PoseidonCommon" }
+poseidon-common = { git = "https://github.com/poseidoncompute/PoseidonCommon.git", rev = "8bccb61d6018d1ac8771e82280a13025f71744d1", features = [
+    "sled_kv",
+    "solana_client",
+    "http",
+    "rustls",
+    "serde_json",
+] }
 json = "0.12.4"
 serde_json = "1.0.79"
 minreq = { version = "2.6.0", features = ["https-rustls"] }
-anyhow = "1.0.57"
+borsh = "0.9.3"
+rustls = "=0.20.2"
 
 [features]

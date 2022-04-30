@@ -1,23 +1,23 @@
-use crate::TransactionError;
-use poseidon_common::{Base58PublicKey, UnixTimestamp};
+use borsh::{BorshDeserialize, BorshSerialize};
+use poseidon_common::{Base58PublicKey, TransactionError, UnixTimestamp};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OnChainTransaction {
-    jsonrpc: String,
-    id: u8,
-    result: RpcResult,
+    pub jsonrpc: String,
+    pub id: u8,
+    pub result: RpcResult,
 }
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RpcResult {
     pub block_time: UnixTimestamp,
     pub meta: RpcMeta,
 }
 
-#[derive(Debug, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RpcMeta {
     pub err: Option<TransactionError>,
@@ -32,14 +32,18 @@ pub struct RpcMeta {
     pub status: Result<(), TransactionError>,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct RpcInnerInstructions {
     pub index: u8,
     pub instructions: Vec<RpcCompiledInstruction>,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct TokenBalances {
     pub account_index: u8,
@@ -48,7 +52,9 @@ pub struct TokenBalances {
     pub ui_token_amount: TokenAmount,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct TokenAmount {
     pub amount: String,
@@ -57,7 +63,9 @@ pub struct TokenAmount {
     pub ui_amount_string: String,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub struct Reward {
     pub pubkey: String,
@@ -67,7 +75,9 @@ pub struct Reward {
     pub commission: u8,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 pub enum RewardType {
     Fee,
@@ -76,7 +86,9 @@ pub enum RewardType {
     Voting,
 }
 
-#[derive(Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize)]
+#[derive(
+    Debug, PartialEq, PartialOrd, Clone, Deserialize, Serialize, BorshSerialize, BorshDeserialize,
+)]
 #[serde(rename_all = "camelCase")]
 
 pub struct RpcCompiledInstruction {

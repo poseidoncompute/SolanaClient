@@ -1,5 +1,5 @@
 use crate::{OnChainTransaction, RecentBlockHash, RpcInvalidResponse, RpcResponse};
-use poseidon_common::{Base58BlockHash, Cluster};
+use poseidon_common::{Base58BlockHash, Cluster, PoseidonError, PoseidonResult};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -22,7 +22,7 @@ impl SolClient {
         self
     }
 
-    pub async fn add_blockhash(&mut self) -> anyhow::Result<&mut Self> {
+    pub async fn add_blockhash(&mut self) -> PoseidonResult<&mut Self> {
         let body = json::object! {
             jsonrpc: "2.0",
             id: 1u8,
@@ -36,7 +36,7 @@ impl SolClient {
         Ok(self)
     }
 
-    pub async fn get_transaction(&self, signature: &str) -> anyhow::Result<OnChainTransaction> {
+    pub async fn get_transaction(&self, signature: &str) -> PoseidonResult<OnChainTransaction> {
         let body = json::object! {
             jsonrpc: "2.0",
             id: 1u8,
@@ -59,8 +59,8 @@ impl SolClient {
                     serde_json::from_str(&response.as_str()?);
 
                 match deser_error {
-                    Ok(error_value) => Err(anyhow::Error::new(error_value)),
-                    Err(_) => Err(anyhow::Error::new(tx_deser_error)),
+                    Ok(error_value) => Err(PoseidonError::Json(error_value.into())),
+                    Err(_) => Err(tx_deser_error.into()),
                 }
             }
         }
