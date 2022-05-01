@@ -1,6 +1,6 @@
 [package]
 name = "solana-client"
-version = "0.3.0"
+version = "0.4.0"
 edition = "2021"
 authors = ["Poseidon Compute Developers <support@poseidon.cloud>"]
 license = "Apache-2.0"
@@ -8,13 +8,13 @@ license = "Apache-2.0"
 
 [dependencies]
 serde = { version = "1.0.136", features = ["derive"] }
-poseidon-common = { git = "https://github.com/poseidoncompute/PoseidonCommon.git", rev = "8bccb61d6018d1ac8771e82280a13025f71744d1", features = [
+poseidon-common = { features = [
     "sled_kv",
     "solana_client",
     "http",
     "rustls",
     "serde_json",
-] }
+], git = "https://github.com/poseidoncompute/PoseidonCommon.git", rev = "0d0f729" }
 json = "0.12.4"
 serde_json = "1.0.79"
 minreq = { version = "2.6.0", features = ["https-rustls"] }
