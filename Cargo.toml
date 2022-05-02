@@ -14,7 +14,7 @@ poseidon-common = { features = [
     "http",
     "rustls",
     "serde_json",
-], git = "https://github.com/poseidoncompute/PoseidonCommon.git", rev = "0d0f729" }
+], git = "https://github.com/poseidoncompute/PoseidonCommon.git", rev = "d5a2798" }
 json = "0.12.4"
 serde_json = "1.0.79"
 minreq = { version = "2.6.0", features = ["https-rustls"] }
